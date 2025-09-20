@@ -32,12 +32,18 @@ export function createBear(type = 'splashy') {
 
     const bodyMat = type === 'polar' ? polarMat : (type === 'grizzly' ? grizzlyMat : brownMat);
     const accentMat = type === 'polar' ? darkPolarMat : (type === 'grizzly' ? darkGrizzlyMat : darkBrownMat);
+    // snout color: slightly lighter than body for splashy; keep previous light tone for others
+    const muzzleMat = (type === 'splashy') ? new THREE.MeshLambertMaterial({ color: 0xa87347 }) : muzzleLightMat;
 
     group.add(createVoxel(0, 0, 0, 1.5, 1.5, 1, bodyMat));
     group.add(createVoxel(0, 1.25, 0, 1, 1, 1, bodyMat));
-    group.add(createVoxel(-0.4, 1.9, 0, 0.22, 0.22, 0.22, eyeBlackMat));
-    group.add(createVoxel(0.4, 1.9, 0, 0.22, 0.22, 0.22, eyeBlackMat));
-    group.add(createVoxel(0, 1.1, 0.5, 0.5, 0.4, 0.3, muzzleLightMat));
+    // eyes: make clearly visible and a bit higher/wider
+    group.add(createVoxel(-0.5, 2.05, 0.06, 0.26, 0.26, 0.22, eyeBlackMat));
+    group.add(createVoxel( 0.5, 2.05, 0.06, 0.26, 0.26, 0.22, eyeBlackMat));
+    // snout: just a bit lighter than body (for splashy) and slightly deeper
+    group.add(createVoxel(0, 1.20, 0.62, 0.54, 0.36, 0.36, muzzleMat));
+    // nose: move up to top of snout and make it stick out more
+    group.add(createVoxel(0, 1.44, 0.82, 0.22, 0.16, 0.16, eyeBlackMat));
     group.add(createVoxel(0, 1.12, 0.66, 0.18, 0.12, 0.1, eyeBlackMat)); /* small nose */
     group.add(createVoxel(-0.5, -1, 0, 0.5, 0.5, 0.5, bodyMat));
     group.add(createVoxel(0.5, -1, 0, 0.5, 0.5, 0.5, bodyMat));
