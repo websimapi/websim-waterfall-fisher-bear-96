@@ -34,9 +34,13 @@ export function createBear(type = 'splashy') {
     const accentMat = type === 'polar' ? darkPolarMat : (type === 'grizzly' ? darkGrizzlyMat : darkBrownMat);
     // snout color: slightly lighter than body for splashy; keep previous light tone for others
     const muzzleMat = (type === 'splashy') ? new THREE.MeshLambertMaterial({ color: 0xa87347 }) : muzzleLightMat;
+    const earMat = (type === 'splashy') ? bodyMat : accentMat;
 
     group.add(createVoxel(0, 0, 0, 1.5, 1.5, 1, bodyMat));
     group.add(createVoxel(0, 1.25, 0, 1, 1, 1, bodyMat));
+    // ears: lowered to touch head
+    group.add(createVoxel(-0.42, 1.72, -0.08, 0.36, 0.36, 0.28, earMat));
+    group.add(createVoxel( 0.42, 1.72, -0.08, 0.36, 0.36, 0.28, earMat));
     // eyes: make clearly visible and a bit higher/wider
     group.add(createVoxel(-0.5, 2.05, 0.06, 0.26, 0.26, 0.22, eyeBlackMat));
     group.add(createVoxel( 0.5, 2.05, 0.06, 0.26, 0.26, 0.22, eyeBlackMat));
