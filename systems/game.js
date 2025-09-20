@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { scene } from '../scene.js';
-import { createBear, updateBear, BEAR_Z_MIN, BEAR_Z_MAX } from '../entities/bear.js';
+import { createBear, updateBear, BEAR_Z_MIN, BEAR_Z_MAX, tickBearBlink } from '../entities/bear.js';
 import { updateFish } from '../entities/fish.js';
 import { initAudio, wireAudioUnlock } from './audio.js';
 import { bindUI, updateUIValues, showHUD } from './ui.js';
@@ -10,7 +10,7 @@ import * as TWEEN from 'tween';
 import { renderer, camera } from '../scene.js';
 import { setupStartScreen, startGameWithTurnaround, gameOver } from './gameFlow.js';
 import { handleFishInteractions } from './gameplay.js';
-import { showcaseFish } from './showcase.js';
+import { showcaseFish, showcaseBear } from './showcase.js';
 
 // --- GAME OBJECTS ---
 export let bear = null;
@@ -109,6 +109,7 @@ export function updateGame() {
         }
     } else { // IDLE
         gameState.idleAnimTimer += 0.05;
+        if (showcaseBear) tickBearBlink(showcaseBear);
         // Update thrown showcase fish physics during start/retry animation
         if (showcaseFish && showcaseFish.userData?.thrown) updateFish(showcaseFish);
         // Update thrown gameplay fish (safety if any remain in array)
