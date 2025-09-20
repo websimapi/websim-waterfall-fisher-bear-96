@@ -1,5 +1,3 @@
-
-```javascript
 import * as THREE from 'three';
 
 export const BEAR_X_LIMIT = 3.2;
